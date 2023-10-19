@@ -1,23 +1,65 @@
-use std::fs::File;
+use chrono::NaiveDate;
+use std::fs;
 use std::io::Write;
-use std::process::Command;
+use tectonic;
+
+macro_rules! with_files_included {
+  ($($filename:expr),*; $code:block) => {
+      {
+        $(
+            let content = include_bytes!($filename).to_vec();
+            fs::File::create($filename)
+                .expect(&format!("Could not create {}", $filename))
+                .write_all(&content)
+                .expect(&format!("Could not write to {}", $filename));
+        )*
+
+        $code
+
+        $(
+          fs::remove_file($filename).expect(&format!("Failed to delete {}", $filename));
+        )*
+      }
+  };
+}
+
+fn get_author_name() -> Option<String> {
+  let authors = env!("CARGO_PKG_AUTHORS");
+  // Split the string by the colon (':') character, which separates multiple authors, and take the first
+  let first_author = authors.split(':').next()?;
+  // Extract the name by splitting at the '<' character and taking the part before it
+  let name = first_author.split('<').next()?;
+  Some(name.trim().to_string())
+}
+
+fn get_filename() -> String {
+  let version = env!("CARGO_PKG_VERSION");
+  let mut parts = version.split('.');
+  let year = parts
+    .next()
+    .expect("Failed to detect major version number")
+    .parse()
+    .expect("Failed to parse year from major version number");
+  let month = parts
+    .next()
+    .expect("Failed to detect minor version number")
+    .parse()
+    .expect("Failed to parse month from minor version number");
+  let dt = NaiveDate::from_ymd_opt(year, month, 1).unwrap();
+  let date_suffix = dt.format("%B %Y");
+  let author = get_author_name().expect("Failed to get author name");
+  format!("CV {} {}.pdf", author, date_suffix)
+}
 
 fn main() {
-    // Retrieve the embedded content of the sample.tex file
-    let tex_content = include_str!("sample.tex");
-    let mut file = File::create("sample.tex").expect("Could not create file");
-    file.write_all(tex_content.as_bytes()).expect("Could not write to file");
+  let filename = get_filename();
 
-    let output = Command::new("pdflatex")
-        .arg("sample.tex")
-        .output()
-        .expect("Failed to execute command");
-
-    if !output.status.success() {
-        eprintln!("Error: {:?}", String::from_utf8_lossy(&output.stderr));
-        panic!("Failed to generate PDF");
-    } else {
-        println!("Successfully generated PDF\n{}",
-            String::from_utf8_lossy(&output.stdout));
-    }
+  with_files_included!("me.jpg", "skills.tex", "certs.tex", "edu.tex", "work.tex", "work-aug-2021-now.tex"; {
+      let tex_content = include_str!("cv.tex");
+      let pdf_data: Vec<u8> = tectonic::latex_to_pdf(tex_content).expect("Processing failed");
+      let mut file = fs::File::create(&filename)
+          .expect(&format!("Could not create {}", &filename));
+      file.write_all(&pdf_data).expect(&format!("Could not write to {}", &filename));
+      println!("{} bytes saved to \"{}\"", pdf_data.len(), filename);
+  });
 }

@@ -3,6 +3,7 @@ name = "aleksandr-vinokurov-cv"
 description = "Aleksandr Vinokurov CV"
 keywords = ["cv", "personal", "backend", "developer", "team-lead"]
 authors = ["Aleksandr Vinokurov <aleksandr.vin@gmail.com>"]
+license = "CC-BY-NC-ND-4.0"
 version = "2023.10.0"
 readme = "README.md"
 repository = "https://github.com/aleksandr-vin/CV/"

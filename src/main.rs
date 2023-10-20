@@ -60,7 +60,7 @@ fn main() {
     "certs.tex",
     "edu.tex",
     "work.tex",
-    "work---2007-oct--2020-july---ps.tex",
+    "work---2007-oct--2016-july---ps.tex",
     "work---2016-aug--2019-apr---veon.tex",
     "work---2019-may--2020-jul---stackstate.tex",
     "work---2019-nov--2020-jul---stackstate.tex",

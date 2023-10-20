@@ -56,16 +56,18 @@ fn main() {
 
   with_files_included!(
     "me.jpg",
-    "skills.tex",
-    "certs.tex",
-    "edu.tex",
-    "work.tex",
+    "work---2005-mar--2005-dec---dsec.tex",
+    "work---2006-apr--2007-oct---alarity.tex",
     "work---2007-oct--2016-july---ps.tex",
     "work---2016-aug--2019-apr---veon.tex",
     "work---2019-may--2020-jul---stackstate.tex",
     "work---2019-nov--2020-jul---stackstate.tex",
     "work---2020-aug--2021-aug---ing.tex",
-    "work---2021-aug--now---klm.tex"; {
+    "work---2021-aug--now---klm.tex",
+    "skills.tex",
+    "certs.tex",
+    "edu.tex",
+    "work.tex"; {
       let tex_content = include_str!("cv.tex");
       let pdf_data: Vec<u8> = tectonic::latex_to_pdf(tex_content).expect("Processing failed");
       let mut file = fs::File::create(&filename)

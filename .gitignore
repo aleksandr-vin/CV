@@ -1,2 +1,5 @@
 /target
 *.pdf
+*.aux
+*.log
+*.out

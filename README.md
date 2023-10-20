@@ -5,6 +5,8 @@ CV of Aleksandr Vinokurov
 
 [<img alt="job-seeking-status" src="https://img.shields.io/badge/Status:-%23open–for–work-green.svg" height="20">](https://linkedin.com/in/aleksandrvin)
 
+Source code of it goes under: [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+
 How to get my latest CV:
 
 ```shell

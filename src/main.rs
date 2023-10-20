@@ -56,6 +56,7 @@ fn main() {
 
   with_files_included!(
     "me.jpg",
+    "work---2004-apr--2005-mar---atlas.tex",
     "work---2005-mar--2005-dec---dsec.tex",
     "work---2006-apr--2007-oct---alarity.tex",
     "work---2007-oct--2016-july---ps.tex",

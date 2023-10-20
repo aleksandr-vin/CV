@@ -34,19 +34,17 @@ fn get_author_name() -> Option<String> {
 }
 
 fn get_cv_date() -> Option<NaiveDate> {
-  let version = env!("CARGO_PKG_VERSION");
-  let mut parts = version.split('.');
-  let year = parts
-    .next()
-    .expect("Failed to detect major version number")
-    .parse()
+  let year = env!("CARGO_PKG_VERSION_MAJOR").parse()
     .expect("Failed to parse year from major version number");
-  let month = parts
-    .next()
-    .expect("Failed to detect minor version number")
-    .parse()
+  let month = env!("CARGO_PKG_VERSION_MINOR").parse()
     .expect("Failed to parse month from minor version number");
   NaiveDate::from_ymd_opt(year, month, 1)
+}
+
+fn get_cv_repo() -> String {
+  let repo = env!("CARGO_PKG_REPOSITORY");
+  assert_ne!(repo, "", "Repository must not be empty");
+  repo.to_string()
 }
 
 fn resize_image(factor: f32) {
@@ -61,6 +59,7 @@ fn resize_image(factor: f32) {
 fn main() {
   let dt = get_cv_date().expect("Faied to get CV date from crate version");
   let author = get_author_name().expect("Failed to get author name");
+  let cv_repo = get_cv_repo();
   let filename = format!("CV {} {}.pdf", author, dt.format("%B %Y"));
 
   with_files_included!(
@@ -85,8 +84,9 @@ fn main() {
       
       let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
         \newcommand{{\cvdate}}{{{}}}
+        \newcommand{{\cvrepo}}{{{}}}
         \input{{cv}}
-      "#, dt.format("%B, %Y"))).expect("Processing failed");
+      "#, dt.format("%B, %Y"), cv_repo)).expect("Processing failed");
       let mut file = fs::File::create(&filename)
           .expect(&format!("Could not create {}", &filename));
       file.write_all(&pdf_data).expect(&format!("Could not write to {}", &filename));

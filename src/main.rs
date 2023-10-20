@@ -67,7 +67,7 @@ fn main() {
     "work---2004-apr--2005-mar---atlas.tex",
     "work---2005-mar--2005-dec---dsec.tex",
     "work---2006-apr--2007-oct---alarity.tex",
-    "work---2007-oct--2016-july---ps.tex",
+    "work---2007-oct--2016-jul---ps.tex",
     "work---2016-aug--2019-apr---veon.tex",
     "work---2019-may--2020-jul---stackstate.tex",
     "work---2019-nov--2020-jul---stackstate.tex",

@@ -54,7 +54,18 @@ fn get_filename() -> String {
 fn main() {
   let filename = get_filename();
 
-  with_files_included!("me.jpg", "skills.tex", "certs.tex", "edu.tex", "work.tex", "work-aug-2021-now.tex"; {
+  with_files_included!(
+    "me.jpg",
+    "skills.tex",
+    "certs.tex",
+    "edu.tex",
+    "work.tex",
+    "work---2007-oct--2020-july---ps.tex",
+    "work---2016-aug--2019-apr---veon.tex",
+    "work---2019-may--2020-jul---stackstate.tex",
+    "work---2019-nov--2020-jul---stackstate.tex",
+    "work---2020-aug--2021-aug---ing.tex",
+    "work---2021-aug--now---klm.tex"; {
       let tex_content = include_str!("cv.tex");
       let pdf_data: Vec<u8> = tectonic::latex_to_pdf(tex_content).expect("Processing failed");
       let mut file = fs::File::create(&filename)

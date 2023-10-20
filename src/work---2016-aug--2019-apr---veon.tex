@@ -1,0 +1,50 @@
+\subsection*{August 2016--April 2019}
+
+\textit{Senior Backend Developer at Veon, \href{https://veon.com}{veon.com}, Amsterdam, The Netherlands}
+
+Veon is a big multinational company, formerly known as Vimpelcom, that has different telcos across the globe. I joined the company in its journey of
+digital transformation, helping to develop Engagement Platform with the goal to become a content provider as well as a service provider.
+
+\subsubsection*{Last project (mid 2018--beg 2019)}
+Leading Core Experience, Identity \& Safety team of 5 backend developers (including myself), 4 Android and 4 iOS
+developers (partially remote). Along with the support of onboarding, authentication, management of the platform users and their consents, the team is
+busy with removing/refactoring legacy backbone code that was built at the very beginning of the platform by a third party. That required coordinated
+work across all the teams and proper planning and execution on the running platform. As a side project for part of the team, we are designing and
+prototyping a generic search service to support full text search in different aspects of the platform. The engine is Elasticsearch and Kafka. We are
+using the same common stack of technologies that we already used in previous projects in the company.
+
+\subsubsection*{Third project (end 2017--mid 2018)}
+Designing, estimating and developing Consents Management Service with mobile SDK. In scope of GDPR adoption,
+I designed a service to manage consents versions and track users' decisions. Service supports different locales of a consent text, filtering by user's
+attributes, versioning of legal meaning of the consent and smart invalidation of user's decisions. Service utilizes HTTP caching to reduce client
+requests to a reasonable amount. Uses Akka Streams to perform batch import/export operations with failovers. Supports event-driven operations.
+To implement the service I gathered and led a small team of 1 more backend and 2 mobile app developers. We were using the same stack of technologies
+as in previous projects.
+
+\subsubsection*{Second project (mid 2017--end 2017)}
+Participation in Platform team. Our goal was to optimize and develop a common layer of our microservices,
+working closely with our infrastructure team. We moved from heterogeneous to homogeneous Akka clusters with sharding, and introduced event driven
+architecture with Kafka. We applied monitoring of our services with the help of Kamon framework and developed Grafana dashboards. For benchmarking
+we used Gatling and JMeter as well as Java Microbenchmark Harness, Elasticsearch and Python. During this project, while working close to the
+infrastructure team, I developed some automation and monitoring command line tools using Python, Bash, Scala scripting with Ammonite, ssh tunneling,
+docker and psql util.
+
+\begin{itemize}[noitemsep, nosep]
+  \item \textbf{Languages:} Scala, Python, Bash
+  \item \textbf{Frameworks/Libraries:} Akka Actors, Akka HTTP, Akka Streams, Akka Cluster, Kamon, Slick, Flyway Migrations, Protobuf, ConstructR,
+  Scala Test, Scala Check, Scala Mock, Mockito, Swagger
+  \item \textbf{Services:} Kafka, Elasticsearch, Consul, Kong API Gateway
+\end{itemize}
+
+\subsubsection*{First project (mid 2016--mid 2017)}
+Developing Identity Management services from scratch, responsible for onboarding, authentication and managing of
+the users. Initially the flow was supported by third party services, and our goal was to move the backend support to our site in steps that required
+API design with mobile app developers, integration across AWS locations and design of appropriate strategy to execute the migration. Also we set up
+Elasticsearch stack at that time and embraced structured logging, brought unit testing and set up integration testing with the help of Docker Compose.
+Applied code review process in our merge requests. Frankly speaking, we've set up the team culture.
+
+\begin{itemize}[noitemsep, nosep]
+  \item \textbf{Languages:} Scala, Python, Bash
+  \item \textbf{Frameworks/Libraries:} Akka Actors, Akka HTTP, Akka Cluster, Slick, Flyway Migrations, Scalaz, Argonaut, Spray, ScalaTest, ScalaCheck,
+  ScalaMock, Mockito, Swagger
+\end{itemize}

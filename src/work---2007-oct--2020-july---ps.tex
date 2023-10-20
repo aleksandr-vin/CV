@@ -1,0 +1,93 @@
+\subsection*{October 2007--July 2020}
+
+\textit{Senior Software Engineer at Peter-Service, CJSC \href{https://billing.ru}{billing.ru}, Saint-Petersburg, Russia}
+
+Peter-Service is a big software company (was about 1000 employees across Russia), it develops and supports billing systems for telco.
+
+\subsubsection*{Last project (mid 2015--mid 2016)}
+Full-stack logging infrastructure for distributed architecture. It solves two problems: (1) aggregating logs from distributed services in one
+place with indexed full-text search and (2) runtime controlling of the produced log detalization level for specific
+request-id-s/user-logins/sessions on each node of the distributed service. The solution consists of log Aggregation infrastructure, log Analytics
+service and distributed services Dynamic Log Control service. Aggregation and Analytics are based on ELK stack by
+\href{https://elastic.co}{elastic.co} --- Elasticsearch-Logstash-Kibana. Dynamic Log Control service was designed as pluggable agents for
+Talend ESB and Tomcat with RESTful API microservice that synchronize agents via Zookeeper. Allowing logging on all servers, operations that were
+originated by specific user sessions and have that logs being produced in DEBUG level with minimal effort and overhead. Distributed deployment
+was implemented in Ansible.
+
+\begin{itemize}[noitemsep, nosep]
+  \item \textbf{Languages:} Java, Ansible
+  \item \textbf{Frameworks/Libraries:} Swagger, Logback, Jackson, OSGi Pax Logging, Apache Curator
+  \item \textbf{Services:} Elasticsearch, Zookeeper, Logstash, Filebeat, Kibana
+\end{itemize}
+
+\subsubsection*{3rd project (end 2012--mid 2015)}
+Distributed high-availability system for providing traffic rate-limiting/shaping and Level 7 DDoS protection (based on HAProxy, designed solely
+from scratch) with dynamic rules in DSL, dynamic reconfiguration by Zookeeper and a RESTful JSON API. The main design goal was to develop a scalable
+ solution that can be run on a farm of low-level machines and when capacities can be scaled on demand. This goal was achieved mostly by using a
+ "shared-nothing" model and by implementing performance-critical parts in C language using HAProxy as a base engine.
+
+HAProxy is a high-performance open source TCP and HTTP load balancer written completely in pure C. It has a threadless "shared-nothing" design.
+I've done analysis of its sources, designed the architecture of extension that was needed for our appliance and implemented it with unit- and
+performance tests, checking the result with profiler. While embedding the CLIPS (C Language Integrated Production System) into the HAProxy, I was
+using Valgrind to find the memory leak that appeared under load, finally I've discovered that it was an expected behaviour of the garbage collector,
+specifically implemented in CLIPS, and I was able to workaround the leak.
+
+\begin{itemize}[noitemsep, nosep]
+  \item \textbf{Languages:} C, Python, Java, JavaScript, CLIPS
+  \item \textbf{Frameworks/Libraries:} Protobuf, ZeroMQ, Python PLY, Python Mock, CMocka
+  \item \textbf{Tools:} Emacs, Strace, GDB, Bash, cURL, JIRA, Confluence, GIT, Rpmbuild, Valgrind, GNU Autotools, ipset/iptables, RRDtool, Icinga
+  \item \textbf{Services:} Couchbase, Zookeeper, CLIPS
+  \item \textbf{Web:} Angular JS, Java EE, Spring, Camel
+\end{itemize}
+
+\subsubsection*{2nd project (beg 2012--end 2012)}
+Development of the infrastructure for new services of the company. Main requirements were: high
+availability and scalability. From April to August, 2012, I've implemented an OAuth v2 specification in an Erlang server (as a part of the SSO
+solution).
+
+During my experience with the Erlang/OTP language and environment I've experimented with the open source logging framework and proposed a pull
+request with asynchronous mode for this system.
+
+\begin{itemize}[noitemsep, nosep]
+  \item \textbf{Languages:} Erlang/OTP
+  \item \textbf{Frameworks/Libraries:} Erlang/OTP, Cowboy, Common Tests, ibrowse, SSL
+  \item \textbf{Tools:} Emacs, Bash, Rebar, cURL, Git, Hg
+  \item \textbf{Databases:} Mnesia, DETS/ETS
+\end{itemize}
+
+\subsubsection*{1st project (mid 2007--end 2011}
+CRM-CMS system for mobile operators.
+
+My participation in the project:
+\begin{itemize}[noitemsep, nosep]
+  \item Porting backend codebase from Windows to Red Hat Enterprise Linux, HP-UX and Sun Solaris servers
+  \item Designing and implementing of a plugins' API for portable backend system
+  \item Refactoring of the Business-Objects layer
+  \item Debugging and profiling Unix-related issues of the backend
+\end{itemize}
+
+In this project I mostly worked on the backend. Its codebase was written in C++ and was consisted of Business-Objects layer, Common Utilities and Business
+Logic. My first task was to port code base from Windows platform to Unix-derived ones. I was the only Unix expert in the team during my work on the
+project and I've shared expertise with the team that till present time they are able to support the codebase on their own. Business-Objects layer
+consisted of about 400-500 classes and extensively used templating. One day we ran out of IDs in the link-phase under HP-UX. After that issue my
+teammate and I have done the refactoring of the whole Business-Objects layer and reduced compilation time from 50 min to slightly more than 20 min.
+
+Another task was to design and implement a plugins system for the Business Logic layer to be able to call pluggable modules in the CRM workflow.
+
+As I was the only Unix expert in the team, I was working on all the Unix-related issues of the backend. I've done excessive Valgrind and GDB runs
+to find memory leaks, heap misuses, race conditions and deadlocks as well as to solve global constructors issues of dynamically loaded libraries.
+I've used gprof to periodically find bottlenecks in libraries. And used to run dtrace for run-time tracing under Solaris.
+
+During my work on this project I've designed two DSLs (in C++ templates and macros): for embedding XML documents and SQL queries in C++ code with
+preprocessor-time checks and compilation,
+\href{https://medium.com/@aleksandrvinokurov/dsl-for-xml-in-c-f284453819b}{https://medium.com/@aleksandrvinokurov/dsl-for-xml-in-c-f284453819b}
+
+I've started automation processes in the team: from automation of the build and release process to nightly builds and unit-tests.
+
+\begin{itemize}[noitemsep, nosep]
+  \item \textbf{Languages:} C++, SQL, PL/SQL, XML, XSLT
+  \item \textbf{Frameworks/Libraries:} OTL, Boost Library, Xalan-C, Xerces-C, Loki, Boost Testing Framework, Google Test Framework,
+  Google Mocking Framework, Log4cxx
+  \item \textbf{Tools:} Emacs, GDB, DTrace, GCC, GNU Autotools, Bash, Clear Case, Clear Quest
+  \item \textbf{Databases:} Oracle 11g
+\end{itemize}

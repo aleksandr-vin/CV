@@ -2,6 +2,7 @@ use chrono::NaiveDate;
 use std::fs;
 use std::io::Write;
 use tectonic;
+use image::{open, ImageFormat};
 
 macro_rules! with_files_included {
   ($($filename:expr),*; $code:block) => {
@@ -32,7 +33,7 @@ fn get_author_name() -> Option<String> {
   Some(name.trim().to_string())
 }
 
-fn main() {
+fn get_cv_date() -> Option<NaiveDate> {
   let version = env!("CARGO_PKG_VERSION");
   let mut parts = version.split('.');
   let year = parts
@@ -45,14 +46,24 @@ fn main() {
     .expect("Failed to detect minor version number")
     .parse()
     .expect("Failed to parse month from minor version number");
-  let dt = NaiveDate::from_ymd_opt(year, month, 1).unwrap();
-  let date_suffix = dt.format("%B %Y");
-  let cv_date = dt.format("%B, %Y");
+  NaiveDate::from_ymd_opt(year, month, 1)
+}
+
+fn resize_image(factor: f32) {
+  let img_filename = "me.jpg";
+  let img = open(&img_filename).expect(&format!("Could not open {}", &img_filename));
+  // Resize to 30% of the original dimensions.
+  let new_dimensions = (img.width() as f32 * factor, img.height() as f32 * factor);
+  let resized = img.resize_exact(new_dimensions.0 as u32, new_dimensions.1 as u32, image::imageops::Nearest);
+  resized.save_with_format(&img_filename, ImageFormat::Jpeg).expect(&format!("Could not save {}", &img_filename))
+}
+
+fn main() {
+  let dt = get_cv_date().expect("Faied to get CV date from crate version");
   let author = get_author_name().expect("Failed to get author name");
-  let filename = format!("CV {} {}.pdf", author, date_suffix);
+  let filename = format!("CV {} {}.pdf", author, dt.format("%B %Y"));
 
   with_files_included!(
-    "me.jpg",
     "work---2004-apr--2005-mar---atlas.tex",
     "work---2005-mar--2005-dec---dsec.tex",
     "work---2006-apr--2007-oct---alarity.tex",
@@ -68,11 +79,14 @@ fn main() {
     "certs.tex",
     "edu.tex",
     "work.tex",
-    "cv.tex"; {
+    "cv.tex",
+    "me.jpg"; {
+      resize_image(0.40);
+      
       let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
         \newcommand{{\cvdate}}{{{}}}
         \input{{cv}}
-      "#, cv_date)).expect("Processing failed");
+      "#, dt.format("%B, %Y"))).expect("Processing failed");
       let mut file = fs::File::create(&filename)
           .expect(&format!("Could not create {}", &filename));
       file.write_all(&pdf_data).expect(&format!("Could not write to {}", &filename));

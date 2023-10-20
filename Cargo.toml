@@ -32,5 +32,6 @@ include = ["src/**/*.rs", "src/*.tex", "src/*.jpg", "Cargo.toml"]
 
 [dependencies]
 chrono = "0.4.31"
+image = "0.24.7"
 tectonic = "0.14.1"
 

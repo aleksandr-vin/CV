@@ -32,7 +32,7 @@ fn get_author_name() -> Option<String> {
   Some(name.trim().to_string())
 }
 
-fn get_filename() -> String {
+fn main() {
   let version = env!("CARGO_PKG_VERSION");
   let mut parts = version.split('.');
   let year = parts
@@ -47,12 +47,9 @@ fn get_filename() -> String {
     .expect("Failed to parse month from minor version number");
   let dt = NaiveDate::from_ymd_opt(year, month, 1).unwrap();
   let date_suffix = dt.format("%B %Y");
+  let cv_date = dt.format("%B, %Y");
   let author = get_author_name().expect("Failed to get author name");
-  format!("CV {} {}.pdf", author, date_suffix)
-}
-
-fn main() {
-  let filename = get_filename();
+  let filename = format!("CV {} {}.pdf", author, date_suffix);
 
   with_files_included!(
     "me.jpg",
@@ -70,9 +67,12 @@ fn main() {
     "skills.tex",
     "certs.tex",
     "edu.tex",
-    "work.tex"; {
-      let tex_content = include_str!("cv.tex");
-      let pdf_data: Vec<u8> = tectonic::latex_to_pdf(tex_content).expect("Processing failed");
+    "work.tex",
+    "cv.tex"; {
+      let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
+        \newcommand{{\cvdate}}{{{}}}
+        \input{{cv}}
+      "#, cv_date)).expect("Processing failed");
       let mut file = fs::File::create(&filename)
           .expect(&format!("Could not create {}", &filename));
       file.write_all(&pdf_data).expect(&format!("Could not write to {}", &filename));

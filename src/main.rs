@@ -47,6 +47,10 @@ fn get_cv_repo() -> String {
   repo.to_string()
 }
 
+fn get_cv_version() -> String {
+  env!("CARGO_PKG_VERSION").to_string()
+}
+
 fn resize_image(factor: f32) {
   let img_filename = "me.jpg";
   let img = open(&img_filename).expect(&format!("Could not open {}", &img_filename));
@@ -60,6 +64,7 @@ fn main() {
   let dt = get_cv_date().expect("Faied to get CV date from crate version");
   let author = get_author_name().expect("Failed to get author name");
   let cv_repo = get_cv_repo();
+  let cv_version = get_cv_version();
   let filename = format!("CV {} {}.pdf", author, dt.format("%B %Y"));
 
   with_files_included!(
@@ -85,8 +90,9 @@ fn main() {
       let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
         \newcommand{{\cvdate}}{{{}}}
         \newcommand{{\cvrepo}}{{{}}}
+        \newcommand{{\cvversion}}{{{}}}
         \input{{cv}}
-      "#, dt.format("%B, %Y"), cv_repo)).expect("Processing failed");
+      "#, dt.format("%B, %Y"), cv_repo, cv_version)).expect("Processing failed");
       let mut file = fs::File::create(&filename)
           .expect(&format!("Could not create {}", &filename));
       file.write_all(&pdf_data).expect(&format!("Could not write to {}", &filename));

@@ -15,10 +15,15 @@
 \renewcommand{\headrulewidth}{0pt}  % Remove the default line from header
 \renewcommand{\footrulewidth}{0.5pt}  % Add a line above the footer
 
+% Header Content
+\lhead{}
+\rhead{\href{\cvrepo tree/\cvversion}{\url{\cvrepo tree/\cvversion}}}
+
 % Footer Content
-\lfoot{\href{\cvrepo}{\url{\cvrepo}}}  % Name of the document on the left side
-\cfoot{\thepage}  % Page number in the center
-\rfoot{\cvdate}
+\lfoot{\cvdate}
+\cfoot{}
+\rfoot{\thepage}
+
 
 % Define custom colors
 \definecolor{linkcolor}{rgb}{0.1, 0.1, 0.8}

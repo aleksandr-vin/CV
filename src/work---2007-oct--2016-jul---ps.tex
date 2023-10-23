@@ -1,6 +1,6 @@
 \subsection*{October 2007--July 2016}
 
-\textit{Senior Software Engineer at Peter-Service, CJSC
+\textit{Senior Software Engineer at Peter-Service, CJSC,
 \href{https://billing.ru}{\url{billing.ru}}, Saint-Petersburg, Russia}
 
 Peter-Service is a big software company (was about 1000 employees
@@ -12,18 +12,17 @@ Full-stack logging infrastructure for distributed architecture. It
 solves two problems: (1) aggregating logs from distributed services in
 one place with indexed full-text search and (2) runtime controlling of
 the produced log detalization level for specific
-request-id-s/user-logins/sessions on each node of the distributed
-service. The solution consists of log Aggregation infrastructure, log
+request-id's/user-logins/sessions on each node of the distributed
+service. The solution consists of (logs) Aggregation infrastructure, (logs)
 Analytics service and distributed services Dynamic Log Control
-service. Aggregation and Analytics are based on ELK stack by
-\href{https://elastic.co}{\url{elastic.co}} ---
+service. Aggregation and Analytics are based on Elastic Stack ---
 Elasticsearch-Logstash-Kibana. Dynamic Log Control service was
 designed as pluggable agents for Talend ESB and Tomcat with RESTful
 API microservice that synchronize agents via Zookeeper. Allowing
-logging on all servers, operations that were originated by specific
-user sessions and have that logs being produced in DEBUG level with
-minimal effort and overhead. Distributed deployment was implemented in
-Ansible.
+logging of all operations that were originated by specific
+user sessions across all servers, and have that logs being produced in
+DEBUG level with minimal effort and overhead. Distributed deployment was
+implemented in Ansible.
 
 \begin{itemize}[noitemsep, nosep]
   \item \textbf{Languages:} Java, Ansible
@@ -86,7 +85,7 @@ Tests, ibrowse, SSL
   \item \textbf{Databases:} Mnesia, DETS/ETS
 \end{itemize}
 
-\subsubsection*{First project (mid 2007--end 2011}
+\subsubsection*{First project (mid 2007--end 2011)}
 
 CRM-CMS system for mobile operators,
 \href{https://web.archive.org/web/20150810163328/http://www.billing.ru:80/solutions/customer}{\url{https://web.archive.org/web/20150810163328/http://www.billing.ru:80/solutions/customer}}.
@@ -102,11 +101,11 @@ backend system
 \end{itemize}
 
 In this project I mostly worked on the backend. Its codebase was
-written in C++ and was consisted of Business-Objects layer, Common
+written in C++ and consisted of Business-Objects layer, Common
 Utilities and Business Logic. My first task was to port code base from
 Windows platform to Unix-derived ones. I was the only Unix expert in
-the team during my work on the project and I've shared expertise with
-the team that till present time they are able to support the codebase
+the team during my work on the project and I've educated
+the team that at the time of my leave they were able to support the codebase
 on their own. Business-Objects layer consisted of about 400-500
 classes and extensively used templating. One day we ran out of IDs in
 the link-phase under HP-UX. After that issue my teammate and I have

@@ -17,11 +17,11 @@ backend and Swift/Objective-C/Java for mobile.
 
 \subsection*{Winter 2015}
 
-In January 2015 we released our first iPhone app on the App Store:
-BizCardApp. You can watch a demonstration video
+In January 2015 we released our first iPhone app on App Store:
+BizCardApp. You can watch a demonstration video here:
 \href{https://youtu.be/TJJCMxzSrDI}{\url{https://youtu.be/TJJCMxzSrDI}}
 for our landing page of that time. Its REST API backend and web server
-has test-stage and production-stage servers with automatic deployment
+has test stage and production stage servers with automatic deployment
 process (based on git post-receive hook). I've used this stack: Nginx
 reverse proxy, Supervisord for supervising servers, Gunicorn as WSGI
 server, Flask web framework, SQLAlchemy as ORM, Alembic for DB schema
@@ -43,8 +43,8 @@ we made it in 1.5 months, working in our spare time and cutting
 features' scope for the goal of meeting the deadline. At the end we
 promoted the app during event days to collect installations, and
 registered only one known crash for iOS 7. The UI and UX design is not
-of its best, but the architecture allowed us to update only content
-for every event up to these days.
+of its best, but the architecture allowed us to be busy updating only the
+content for every event up to recent days.
 
 \subsection*{2016}
 
@@ -54,3 +54,16 @@ Owners in Russia and CIS:
 The app was designed and implemented for H.O.G. Russia \& CIS. Apart
 from the app we developed a back-office to manage loyalty programs and
 events in the app.
+
+\subsection*{2020}
+
+During Winter of 2020-2021 we developed a live parking detection system,
+that was using public street web cameras to collect photos of parking
+areas in a city, upload them to S3 buckets, crop photos to mapped zones
+on AWS Lamba, detect cars there with YOLOv4
+\href{https://github.com/videoparking/darknet}{\url{https://github.com/videoparking/darknet}}
+and store results in AWS Timestream. Service was able to say how full
+the parking area was at the moment (based on history data) and was coloring
+zones on a map. We freezed the project in the Spring of 2021. Public components
+can be viewed here
+\href{https://github.com/videoparking}{\url{https://github.com/videoparking}}.

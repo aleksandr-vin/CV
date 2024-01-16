@@ -76,7 +76,7 @@ fn main() {
     "work---2019-may--2020-jul---stackstate.tex",
     "work---2019-nov--2020-jul---stackstate.tex",
     "work---2020-aug--2021-aug---ing.tex",
-    "work---2021-aug--now---klm.tex",
+    "work---2021-aug--2023-dec---klm.tex",
     "personal-projects.tex",
     "opensource.tex",
     "startup.tex",

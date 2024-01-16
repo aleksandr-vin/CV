@@ -28,7 +28,7 @@ dependencies = [
 
 [[package]]
 name = "aleksandr-vinokurov-cv"
-version = "2023.10.1"
+version = "2024.1.16"
 dependencies = [
  "chrono",
  "image",

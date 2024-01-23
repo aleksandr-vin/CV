@@ -92,7 +92,7 @@ fn main() {
 
       for suffix in [
         'e',
-        // 's',
+        's',
         ] {
         let filename = format!("CV {} {} {}.pdf", author, dt.format("%B %Y"), suffix);
 

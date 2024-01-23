@@ -20,7 +20,7 @@
 
 % Header Content
 \lhead{}
-\rhead{\href{\cvrepo tree/\cvversion}{\url{\cvrepo tree/\cvversion}}}
+% \rhead{\href{\cvrepo tree/\cvversion}{\url{\cvrepo tree/\cvversion}}}
 
 % Footer Content
 \lfoot{\cvdate}
@@ -37,6 +37,8 @@
     urlcolor=linkcolor
 }
 
+\setlist[itemize]{leftmargin=1.5em}
+
 % Formatting for sections and subsections
 \titleformat{\section}
   {\normalfont\Large\bfseries}{\thesection}{1em}{}
@@ -47,31 +49,43 @@
 
 \begin{document}
 
-% Header with photo
-\begin{wrapfigure}{r}{0.3\textwidth} % Reserve space for the photo on the right
-  \vspace{-5ex} % Adjust this value as needed
-  \includegraphics[width=0.3\textwidth]{me.jpg} % This width should match the wrapfigure width
-\end{wrapfigure}
-
-\noindent\textbf{\Huge Aleksandr Vinokurov}
-
-\vspace{1em}
-
 \noindent
-\begin{tabular}{@{\hspace{5mm}}l}
-\href{tel:+31613018394}{\url{+31(6)13018394}} \\
-\href{mailto:dev@aleksandr.vin}{\url{dev@aleksandr.vin}} \\
-\href{https://linkedin.com/in/aleksandrvin}{\url{linkedin.com/in/aleksandrvin}} \\
-\href{https://github.com/aleksandr-vin}{\url{github.com/aleksandr-vin}} \\
-\href{https://aleksandr.vin}{\url{https://aleksandr.vin}}
-\end{tabular}
+\begin{minipage}[t]{0.65\textwidth}
+  % Left column content goes here
 
-\vspace{1em}
+  \textbf{\Huge Aleksandr Vinokurov}
 
-\noindent\parbox{\linewidth}{\raggedright\textbf{\Large Team Lead \& Sr. Backend Developer}} % Short description
+  \vspace{1.7em}
+
+  \begin{tabular}{@{\hspace{1.5em}}l}
+    \href{tel:+31613018394}{\url{+31(6)13018394}} \\
+    \href{mailto:dev@aleksandr.vin}{\url{dev@aleksandr.vin}} \\
+    \href{https://linkedin.com/in/aleksandrvin}{\url{linkedin.com/in/aleksandrvin}} \\
+    \href{https://github.com/aleksandr-vin}{\url{github.com/aleksandr-vin}} \\
+    % \href{https://aleksandr.vin}{\url{https://aleksandr.vin}}
+  \end{tabular}
+
+  \vspace{1.6em}
+
+  \noindent\parbox{\linewidth}{\raggedright\textbf{\Large Team Lead \& Sr. Full-Stack Engineer}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.27\textwidth}
+  % Right column content goes here
+  % This is where you put your photo.
+  \vspace{-5ex} % Adjust this value as needed
+  \includegraphics[width=\linewidth]{me.jpg}
+\end{minipage}
+
 
 % Space between the header and the section title
-\vspace{1em}
+% \vspace{1em}
+
+\subsection*{About}
+
+In programming since 1997. Studied InfoSec and cryptography. I am a full-stack engineer with security mindset.
+Choosing the right tool for each problem. Know where "the devil hides". I bring an inspiring, communicative approach to my team.
+Committed to taking responsibility and owning the process, I'm a firm believer in automation and maintaining an optimistic outlook in every project.
+
 
 \input{skills}
 
@@ -83,7 +97,7 @@
 
 \input{startup-and-personal-projects}
 
-\input{opensource}
+% \input{opensource}
 
 \vspace{5em}
 % \vfill % This pushes the contact info to the bottom of the page. Remove if unnecessary.

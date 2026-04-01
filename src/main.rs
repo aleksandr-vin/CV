@@ -1,8 +1,8 @@
 use chrono::NaiveDate;
+use image::{open, ImageFormat};
 use std::fs;
 use std::io::Write;
 use tectonic;
-use image::{open, ImageFormat};
 
 macro_rules! with_files_included {
   ($($filename:expr),*; $code:block) => {
@@ -34,9 +34,11 @@ fn get_author_name() -> Option<String> {
 }
 
 fn get_cv_date() -> Option<NaiveDate> {
-  let year = env!("CARGO_PKG_VERSION_MAJOR").parse()
+  let year = env!("CARGO_PKG_VERSION_MAJOR")
+    .parse()
     .expect("Failed to parse year from major version number");
-  let month = env!("CARGO_PKG_VERSION_MINOR").parse()
+  let month = env!("CARGO_PKG_VERSION_MINOR")
+    .parse()
     .expect("Failed to parse month from minor version number");
   NaiveDate::from_ymd_opt(year, month, 1)
 }
@@ -56,8 +58,14 @@ fn resize_image(factor: f32) {
   let img = open(&img_filename).expect(&format!("Could not open {}", &img_filename));
   // Resize to 30% of the original dimensions.
   let new_dimensions = (img.width() as f32 * factor, img.height() as f32 * factor);
-  let resized = img.resize_exact(new_dimensions.0 as u32, new_dimensions.1 as u32, image::imageops::Nearest);
-  resized.save_with_format(&img_filename, ImageFormat::Jpeg).expect(&format!("Could not save {}", &img_filename))
+  let resized = img.resize_exact(
+    new_dimensions.0 as u32,
+    new_dimensions.1 as u32,
+    image::imageops::Nearest,
+  );
+  resized
+    .save_with_format(&img_filename, ImageFormat::Jpeg)
+    .expect(&format!("Could not save {}", &img_filename))
 }
 
 fn main() {
@@ -75,6 +83,7 @@ fn main() {
     "work---2019-may--2020-jul---stackstate.tex",
     "work---2020-aug--2021-aug---ing.tex",
     "work---2021-aug--2023-dec---klm.tex",
+    "work---2024-apr--2026-mar---abnamro.tex",
     "personal-projects-content.tex",
     "personal-projects.tex",
     "opensource.tex",
@@ -87,12 +96,14 @@ fn main() {
     "work.tex",
     "cv-for-e.tex",
     "cv-for-s.tex",
+    "cv-for-r.tex",
     "me.jpg"; {
       resize_image(0.40);
 
       for suffix in [
-        'e',
-        's',
+        // 'e',
+        // 's',
+        'r',
         ] {
         let filename = format!("CV {} {} {}.pdf", author, dt.format("%B %Y"), suffix);
 

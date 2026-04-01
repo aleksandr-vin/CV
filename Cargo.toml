@@ -4,7 +4,7 @@ description = "Aleksandr Vinokurov CV"
 keywords = ["cv", "personal", "backend", "developer", "team-lead"]
 authors = ["Aleksandr Vinokurov <dev@aleksandr.vin>"]
 license = "CC-BY-NC-ND-4.0"
-version = "2024.2.6"
+version = "2026.4.1"
 readme = "README.md"
 repository = "https://github.com/aleksandr-vin/CV/"
 categories = [
@@ -18,6 +18,6 @@ edition = "2021"
 include = ["src/**/*.rs", "src/*.tex", "src/*.jpg", "Cargo.toml"]
 
 [dependencies]
-chrono = "0.4.31"
-image = "0.24.7"
-tectonic = "0.14.1"
+chrono = "0.4.44"
+image = "0.25.10"
+tectonic = { version = "0.15.0", features = ["external-harfbuzz"] }

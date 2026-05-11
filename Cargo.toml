@@ -20,4 +20,4 @@ include = ["src/**/*.rs", "src/*.tex", "src/*.jpg", "Cargo.toml"]
 [dependencies]
 chrono = "0.4.44"
 image = "0.25.10"
-tectonic = { version = "0.15.0", features = ["external-harfbuzz"] }
+tectonic = "0.16.9"

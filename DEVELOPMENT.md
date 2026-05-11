@@ -1,7 +1,31 @@
 Development
 ===========
 
-## Creating pdf
+## In Docker
+
+```shell
+docker build --tag cv .
+docker run --rm -v .:/out cv
+```
+
+## Local on macos
+
+### Deps
+
+```shell
+brew install libpng graphite2 freetype icu4c
+```
+
+### Setting up build env
+
+```shell
+export PATH="$(brew --prefix icu4c)/bin:$PATH"
+export PKG_CONFIG_PATH="$(brew --prefix icu4c)/lib/pkgconfig:$PKG_CONFIG_PATH"
+export LDFLAGS="-L$(brew --prefix icu4c)/lib"
+export CPPFLAGS="-I$(brew --prefix icu4c)/include"
+```
+
+### Creating pdf
 
 ```shell
 cargo run
@@ -12,14 +36,4 @@ cargo run
 ```shell
 cd src
 pdflatex debug.tex
-```
-
-## Known problems
-
-```
-cargo clean
-export PKG_CONFIG_PATH="$(brew --prefix harfbuzz)/lib/pkgconfig:$(brew --prefix freetype)/lib/pkgconfig:$(brew --prefix graphite2)/lib/pkgconfig:$(brew --prefix icu4c@78)/lib/pkgconfig"
-export CXXFLAGS="-I$(brew --prefix harfbuzz)/include -std=c++17"
-export CC_SHELL_ESCAPED_FLAGS=1
-cargo build -vv
 ```

@@ -121,19 +121,29 @@ fn main() {
     "work.tex",
     "cv-for-e.tex",
     "cv-for-s.tex",
+    "letter.tex",
     "me.jpg"; {
     resize_image(0.40);
 
     for suffix in suffixes {
-      let filename = format!("CV {} {} {}.pdf", author, dt.format("%B %Y"), suffix);
+      let filename: String;
+      let input: String;
+      if suffix == "letter" {
+        filename = format!("letter.pdf");
+        input = format!(r#"
+          \input{{letter}}
+        "#);
+      } else {
+        filename = format!("CV {} {} {}.pdf", author, dt.format("%B %Y"), suffix);
+        input = format!(r#"
+          \newcommand{{\cvdate}}{{{}}}
+          \newcommand{{\cvrepo}}{{{}}}
+          \newcommand{{\cvversion}}{{{}}}
+          \input{{cv-for-{}}}
+        "#, dt.format("%B, %Y"), cv_repo, cv_version, suffix);
+      }
       print!("Compiling \"{}\"... ", filename);
-      
-      let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
-        \newcommand{{\cvdate}}{{{}}}
-        \newcommand{{\cvrepo}}{{{}}}
-        \newcommand{{\cvversion}}{{{}}}
-        \input{{cv-for-{}}}
-      "#, dt.format("%B, %Y"), cv_repo, cv_version, suffix)).expect("Processing failed");
+      let pdf_data: Vec<u8> = tectonic::latex_to_pdf(&input).expect("Processing failed");
 
       let file_path = result_dir.join(&filename);
       let mut file = fs::File::create(&file_path)

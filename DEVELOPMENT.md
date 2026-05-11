@@ -1,6 +1,14 @@
 Development
 ===========
 
+This command-line arguments are supported:
+
+- `s` -- to compile CV for *startups*
+- `e` -- to compile CV for *enterprise*
+- `letter` -- to compile a (motivation) letter (from src/letter.tex)
+
+By default `s e` will be provided as arguments.
+
 ## In Docker
 
 ```shell

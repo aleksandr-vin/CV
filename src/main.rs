@@ -2,6 +2,7 @@ use chrono::NaiveDate;
 use image::{open, ImageFormat};
 use std::fs;
 use std::io::Write;
+use std::env;
 use tectonic;
 
 macro_rules! with_files_included {
@@ -15,11 +16,13 @@ macro_rules! with_files_included {
                 .expect(&format!("Could not write to {}", $filename));
         )*
 
-        $code
+        let result = $code;
 
         $(
           fs::remove_file($filename).expect(&format!("Failed to delete {}", $filename));
         )*
+
+        result
       }
   };
 }
@@ -74,6 +77,28 @@ fn main() {
   let cv_repo = get_cv_repo();
   let cv_version = get_cv_version();
 
+  let mut args: Vec<String> = env::args().collect();
+  args.remove(0);
+  
+  let suffixes: Vec<String> =
+    if args.len() == 0 {
+      vec!["r".to_string()]
+    } else {
+      args
+    };
+
+  let result_dir = match env::current_dir() {
+      Ok(file) => file,
+      Err(error) => panic!("Problem getting working directory: {error:?}"),
+  };
+
+  let tmp_dir = env::temp_dir();
+  match env::set_current_dir(&tmp_dir) {
+    Ok(()) => (),
+    Err(error) => panic!("Problem changing working directory to {tmp_dir:?}: {error:?}"),
+  };
+  println!("Changed working directory to {tmp_dir:?}");
+
   with_files_included!(
     "work---2004-apr--2005-mar---atlas.tex",
     "work---2005-mar--2005-dec---dsec.tex",
@@ -98,25 +123,24 @@ fn main() {
     "cv-for-s.tex",
     "cv-for-r.tex",
     "me.jpg"; {
-      resize_image(0.40);
+    resize_image(0.40);
 
-      for suffix in [
-        // 'e',
-        // 's',
-        'r',
-        ] {
-        let filename = format!("CV {} {} {}.pdf", author, dt.format("%B %Y"), suffix);
+    for suffix in suffixes {
+      let filename = format!("CV {} {} {}.pdf", author, dt.format("%B %Y"), suffix);
+      print!("Compiling \"{}\"... ", filename);
+      
+      let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
+        \newcommand{{\cvdate}}{{{}}}
+        \newcommand{{\cvrepo}}{{{}}}
+        \newcommand{{\cvversion}}{{{}}}
+        \input{{cv-for-{}}}
+      "#, dt.format("%B, %Y"), cv_repo, cv_version, suffix)).expect("Processing failed");
 
-        let pdf_data: Vec<u8> = tectonic::latex_to_pdf(format!(r#"
-          \newcommand{{\cvdate}}{{{}}}
-          \newcommand{{\cvrepo}}{{{}}}
-          \newcommand{{\cvversion}}{{{}}}
-          \input{{cv-for-{}}}
-        "#, dt.format("%B, %Y"), cv_repo, cv_version, suffix)).expect("Processing failed");
-        let mut file = fs::File::create(&filename)
-            .expect(&format!("Could not create {}", &filename));
-        file.write_all(&pdf_data).expect(&format!("Could not write to {}", &filename));
-        println!("{} bytes saved to \"{}\"", pdf_data.len(), filename);
-      }
+      let file_path = result_dir.join(&filename);
+      let mut file = fs::File::create(&file_path)
+          .expect(&format!("Could not create {}", &filename));
+      file.write_all(&pdf_data).expect(&format!("Could not write to {}", file_path.display()));
+      println!("{} bytes saved", pdf_data.len());
+    }
   });
 }

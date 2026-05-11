@@ -82,7 +82,7 @@ fn main() {
   
   let suffixes: Vec<String> =
     if args.len() == 0 {
-      vec!["r".to_string()]
+      vec!["e".to_string(), "s".to_string()]
     } else {
       args
     };
@@ -121,7 +121,6 @@ fn main() {
     "work.tex",
     "cv-for-e.tex",
     "cv-for-s.tex",
-    "cv-for-r.tex",
     "me.jpg"; {
     resize_image(0.40);
 
